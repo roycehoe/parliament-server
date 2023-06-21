@@ -13,7 +13,7 @@ from exceptions import (
     EmptyParliamentDateFileException,
     NoParliamentDateFileException,
 )
-from utils.date import get_date_from_ddmmyy
+from utils.date import get_date_from_ddmmyyyy
 
 
 @dataclass
@@ -57,7 +57,7 @@ class CRUDParliamentDates:
     def day_after_last_saved(self) -> date:
         try:
             with open(self.path, "r") as file:
-                last_saved_day = get_date_from_ddmmyy(json.load(file)[-1])
+                last_saved_day = get_date_from_ddmmyyyy(json.load(file)[-1])
                 day_after_last_saved = last_saved_day + timedelta(days=1)
                 return day_after_last_saved
         except IndexError:
