@@ -1,11 +1,11 @@
-from dataclasses import dataclass
 from datetime import date, datetime, timedelta
 from typing import Callable
+
+from loguru import logger
 
 from clients.hansard import get_hansard_API_response
 from constants import DEFAULT_DATETIME_FORMAT, FIRST_PARLIAMENT_SITTING
 from exceptions import DateRangeException, HansardAPICallException
-from loguru import logger
 
 
 def _get_hansard_URL_formatted_dates(
@@ -13,7 +13,10 @@ def _get_hansard_URL_formatted_dates(
 ) -> Callable[..., list[str]]:
     def wrap(*args, **kwargs):
         result = func(*args, **kwargs)
-        return [datetime.strftime(date, DEFAULT_DATETIME_FORMAT) for date in result]
+        return [
+            datetime.strftime(unformatted_date, DEFAULT_DATETIME_FORMAT)
+            for unformatted_date in result
+        ]
 
     return wrap
 

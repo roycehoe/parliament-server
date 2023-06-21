@@ -1,7 +1,8 @@
-from constants import IS_DEV
-from database import get_database
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
+from constants import IS_DEV
+from database import get_database
 from logs import get_configured_logging
 from services import prepopulate
 from services.parliament_data import get_all_parliament_dates, get_parliament_data
